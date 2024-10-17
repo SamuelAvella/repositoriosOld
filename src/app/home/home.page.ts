@@ -31,7 +31,7 @@ export class HomePage implements OnInit{
 
   selectedPerson: any = null;
   isAnimating = false;
-  page:number = 0;
+  page:number = 1;
   pageSize:number = 25;
 
 
@@ -83,8 +83,9 @@ export class HomePage implements OnInit{
   }
 
   onIonInfinite(ev:InfiniteScrollCustomEvent) {
-    this.getMorePeople(ev.target);
-    
+    if(this.page <= this.pageSize){
+      this.getMorePeople(ev.target);
+    }
   }
 
 }

@@ -16,7 +16,8 @@
   <ion-list>
     <ion-item *ngFor="let person of people$ | async; let i = index" (click)="openPersonDetail(person, i)">
       <ion-avatar slot="start">
-        <img #avatar alt="Silhouette of a person's head" [src]="person.picture?.thumbnail" />
+        <img *ngIf="person.picture?.thumbnail" #avatar alt="Silhouette of a person's head" [src]="person.picture!.thumbnail" />
+        <img *ngIf="!person.picture?.thumbnail" #avatar alt="Silhouette of a person's head"  src="https://i.ibb.co/FYtW4nk/images-3.jpg" />
       </ion-avatar>
       <ion-label class="ion-text-nowrap">
         {{person.name}} {{person.surname}} ({{person.age}} años)
@@ -24,9 +25,9 @@
     </ion-item>
   </ion-list>
   <div #animatedAvatarContainer class="animated-avatar-container" [ngStyle]="{'display':isAnimating?'block':'none'}">
-    <img #animatedAvatar [src]="selectedPerson?.picture?.large" alt="Foto de {{ selectedPerson?.name.first }}">
+    <img #animatedAvatar src="https://i.ibb.co/FYtW4nk/images-3.jpg" alt="Foto de {{ selectedPerson?.name.first }}">
   </div>
-  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+  <ion-infinite-scroll *ngIf="page < pageSize" (ionInfinite)="onIonInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
   
